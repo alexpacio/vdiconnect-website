@@ -1,0 +1,34 @@
+.calc { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px; }
+.calc-steps { flex: 1 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
+.calc-step { display: flex; flex-direction: column; gap: 18px; }
+.calc-step-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.calc-title { margin: 0; font-size: 20px; font-weight: 680; font-stretch: 110%; }
+.calc-num { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--red-text); margin-right: 10px; }
+
+.stepper { display: flex; align-items: center; border: 1px solid var(--line-3); border-radius: 12px; overflow: hidden; }
+.stepper button { width: 52px; height: 56px; border: 0; background: #202020; color: var(--text); font-size: 22px; cursor: pointer; }
+.stepper input {
+  width: 84px; height: 56px; border: 0; border-left: 1px solid var(--line-3); border-right: 1px solid var(--line-3);
+  background: var(--bg); color: #fff; text-align: center; font: 700 24px var(--sans); font-stretch: 112%;
+}
+.preset {
+  min-width: 56px; min-height: 44px; padding: 0 14px; border-radius: 10px; cursor: pointer;
+  font-family: var(--mono); font-size: 14px; border: 1px solid var(--line-3); background: transparent; color: var(--text-3);
+}
+.preset[aria-pressed='true'] { border-color: var(--red); background: var(--panel-red); color: #fff; }
+
+.method {
+  display: flex; align-items: flex-start; gap: 14px; padding: 20px; border-radius: 12px; cursor: pointer;
+  border: 1px solid var(--line-2); background: var(--bg);
+}
+.method[data-selected='true'] { border-color: var(--red); background: var(--panel-red); }
+.method input { margin: 3px 0 0; width: 18px; height: 18px; accent-color: var(--red); }
+
+.calc-summary { flex: 1 1 340px; min-width: 0; position: sticky; top: 92px; display: flex; flex-direction: column; gap: 20px; border-radius: 18px; }
+.sum-line { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 14.5px; color: var(--text-3); }
+.sum-line strong { color: var(--text); font-weight: 600; font-size: 16px; }
+.sum-line--rule { padding-top: 16px; border-top: 1px solid var(--line); }
+.sum-total strong { font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1; font-weight: 760; font-stretch: 116%; letter-spacing: -0.03em; }
+.calc-summary .checks { padding-top: 18px; border-top: 1px solid var(--line); color: var(--text-3); }
+
+.done-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--red); display: flex; align-items: center; justify-content: center; }

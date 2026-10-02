@@ -1,0 +1,43 @@
+---
+import type { CompareGroup } from '../data/site';
+
+interface Props {
+  groups: CompareGroup[];
+  showGroups?: boolean;
+}
+
+const { groups, showGroups = true } = Astro.props;
+---
+<div class="table-wrap">
+  <table class="cmp">
+    <thead>
+      <tr>
+        <th scope="col"><span class="sr-only">Feature</span></th>
+        <th scope="col" class="us">VDIConnect</th>
+        <th scope="col">Parsec</th>
+        <th scope="col">Citrix <span class="sub">Virtual Apps and Desktops / DaaS</span></th>
+        <th scope="col">Microsoft RDP <span class="sub">Remote Desktop / RDS</span></th>
+      </tr>
+    </thead>
+    {groups.map((g) => (
+      <tbody>
+        {showGroups && (
+          <tr class="group"><th scope="colgroup" colspan="5">{g.group}</th></tr>
+        )}
+        {g.rows.map((r) => (
+          <tr>
+            <th scope="row">{r.label}</th>
+            <td class="us">{r.us}</td>
+            <td>{r.parsec}</td>
+            <td>{r.citrix}</td>
+            <td>{r.rdp}</td>
+          </tr>
+        ))}
+      </tbody>
+    ))}
+  </table>
+</div>
+
+<style>
+  .sub { display: block; font-size: 12.5px; font-weight: 400; color: var(--dim); }
+</style>

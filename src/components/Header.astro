@@ -1,0 +1,72 @@
+---
+import { nav, type NavKey } from '../data/site';
+import Icon from './Icon.astro';
+
+interface Props {
+  active?: NavKey;
+}
+
+const { active } = Astro.props;
+---
+<header class="site-header">
+  <div class="container bar">
+    <a href="/" class="brand" aria-label="VDIConnect by Netter — home">
+      <img src="/images/netter-logo.png" alt="Netter" width="113" height="30" />
+      <span class="divider" aria-hidden="true"></span>
+      <span class="wordmark slice--white">VDIConnect</span>
+    </a>
+    <nav class="links" aria-label="Primary">
+      {nav.map((item) => (
+        <a href={item.href} aria-current={item.key && item.key === active ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <div class="actions">
+      <a href="/pricing/" class="btn btn--primary btn--sm">Buy licenses</a>
+      <details class="mobile-menu">
+        <summary aria-label="Menu"><Icon name="menu" size={22} /></summary>
+        <nav aria-label="Mobile">
+          {nav.map((item) => (
+            <a href={item.href} aria-current={item.key && item.key === active ? 'page' : undefined}>{item.label}</a>
+          ))}
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(20, 20, 20, 0.86);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand img { height: 30px; width: auto; }
+  .divider { width: 1px; height: 22px; background: var(--line-3); }
+  .wordmark { font-size: 19px; font-weight: 700; font-stretch: 112%; letter-spacing: -0.01em; }
+  .links { display: flex; align-items: center; gap: 26px; font-size: 14px; font-weight: 500; }
+  .links a[aria-current='page'] { color: #fff; }
+  .actions { display: flex; align-items: center; gap: 12px; }
+  .mobile-menu { display: none; position: relative; }
+  .mobile-menu summary {
+    list-style: none; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--line-3); border-radius: 10px; cursor: pointer; color: var(--text);
+  }
+  .mobile-menu summary::-webkit-details-marker { display: none; }
+  .mobile-menu nav {
+    position: absolute; right: 0; top: 52px; min-width: 220px; padding: 10px;
+    background: #101010; border: 1px solid var(--line-3); border-radius: 12px;
+    display: flex; flex-direction: column;
+  }
+  .mobile-menu nav a { padding: 12px 14px; border-radius: 8px; font-size: 15px; }
+  .mobile-menu nav a:hover { background: #1c1c1c; }
+  @media (max-width: 1040px) {
+    .links { display: none; }
+    .mobile-menu { display: block; }
+  }
+  @media (max-width: 480px) {
+    .brand img, .divider { display: none; }
+  }
+</style>

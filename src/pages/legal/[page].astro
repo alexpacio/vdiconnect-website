@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { page: 'terms' }, props: { title: 'Terms of sale' } },
+    { params: { page: 'license' }, props: { title: 'License agreement' } },
+    { params: { page: 'trial' }, props: { title: 'Trial terms' } },
+    { params: { page: 'privacy' }, props: { title: 'Privacy policy' } },
+    { params: { page: 'cookies' }, props: { title: 'Cookie policy' } },
+  ];
+}
+
+const { title } = Astro.props;
+---
+<Layout title={`${title} — VDIConnect`} description={`${title} for VDIConnect, a product of Netter srl.`}>
+  <section class="section">
+    <div class="container" style="max-width: 880px">
+      <p class="kicker">Legal</p>
+      <h1 class="h1 h1--sm">{title}</h1>
+      <p class="lead">[LEGAL TEXT TO BE PROVIDED BY NETTER SRL]</p>
+    </div>
+  </section>
+</Layout>

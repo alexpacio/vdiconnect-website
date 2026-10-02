@@ -1,0 +1,105 @@
+---
+const up = '#0E7A55';
+const down = '#B3261E';
+const sheet = [
+  ['Milano', '1,284.50', '1,342.10', '1,401.75', '1,466.20', '+4.6%', up],
+  ['Torino', '918.40', '902.15', '934.80', '951.30', '+1.8%', up],
+  ['Bologna', '766.05', '781.90', '774.60', '759.25', '−0.9%', down],
+  ['Roma', '1,102.70', '1,145.35', '1,188.40', '1,230.85', '+3.9%', up],
+  ['Napoli', '689.20', '702.45', '698.10', '715.60', '+2.4%', up],
+  ['Firenze', '571.85', '566.30', '559.75', '552.40', '−1.3%', down],
+  ['Verona', '433.10', '447.95', '459.20', '468.65', '+2.1%', up],
+];
+const bars = [42, 55, 48, 63, 58, 71, 66, 78, 74, 86, 81, 94];
+---
+<div class="displays" role="img" aria-label="Illustration: a VDIConnect client showing two remote displays, a spreadsheet and a 3D CAD model, with a statistics overlay">
+  <figure class="win" aria-hidden="true">
+    <div class="titlebar"><span class="dots"><i></i><i></i><i></i></span><span>Display 1 · 2560 × 1440 · 4:4:4</span><span class="hz">60 Hz</span></div>
+    <div class="screen sheet">
+      <div class="toolbar"><i style="width:54px"></i><i style="width:38px"></i><i style="width:46px"></i><span>Regional revenue · FY26.xlsx</span></div>
+      <div class="sheet-body">
+        <table>
+          <thead><tr><th>Region</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th><th>YoY</th></tr></thead>
+          <tbody>
+            {sheet.map(([region, q1, q2, q3, q4, yoy, tone]) => (
+              <tr><td>{region}</td><td>{q1}</td><td>{q2}</td><td>{q3}</td><td>{q4}</td><td style={`color:${tone};font-weight:600`}>{yoy}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <div class="chart">
+          {bars.map((h, i) => <span style={`height:${h}%;background:${i === bars.length - 1 ? '#E3000F' : '#9FB0B7'}`}></span>)}
+        </div>
+      </div>
+    </div>
+  </figure>
+  <figure class="win" aria-hidden="true">
+    <div class="titlebar"><span class="dots"><i></i><i></i><i></i></span><span>Display 2 · 2560 × 1440 · 4:4:4</span><span class="hz">60 Hz</span></div>
+    <div class="screen cad">
+      <div class="layers"><i style="width:70%;background:#3A4044"></i><i style="width:88%"></i><i style="width:64%"></i><i style="width:80%;background:#E3000F"></i><i style="width:58%"></i><i style="width:74%"></i></div>
+      <div class="viewport">
+        <svg viewBox="0 0 400 320">
+          <g stroke="#2B3134" stroke-width="1" fill="none">
+            <path d="M200 100L373 200M165.4 120L338.4 220M130.8 140L303.8 240M96.2 160L269.2 260M61.6 180L234.6 280M27 200L200 300" />
+            <path d="M200 100L27 200M234.6 120L61.6 220M269.2 140L96.2 240M303.8 160L130.8 260M338.4 180L165.4 280M373 200L200 300" />
+          </g>
+          <path d="M200 75L200 165M200 165L260.6 200M200 165L139.4 200" stroke="#5A6266" stroke-dasharray="4 4" fill="none" />
+          <path d="M200 75L260.6 110L200 145L139.4 110Z" fill="rgba(227,0,15,0.16)" stroke="#FF4B57" stroke-width="1.6" />
+          <path d="M260.6 110L200 145L200 235L260.6 200Z" fill="rgba(227,0,15,0.07)" stroke="#FF4B57" stroke-width="1.6" />
+          <path d="M139.4 110L200 145L200 235L139.4 200Z" fill="rgba(255,255,255,0.04)" stroke="#FF4B57" stroke-width="1.6" />
+          <path d="M278 110L278 200M273 110L283 110M273 200L283 200M126 210L186 245M124 205L128 215M184 240L188 250" stroke="#9AA3A7" fill="none" />
+          <text x="286" y="159" fill="#C4CACD" font-family="IBM Plex Mono, monospace" font-size="11">90.00</text>
+          <text x="112" y="240" fill="#C4CACD" font-family="IBM Plex Mono, monospace" font-size="11">70.00</text>
+        </svg>
+      </div>
+      <div class="overlay">
+        <span>video</span><span>AV1 · 4:4:4 · 60 Hz</span>
+        <span>displays</span><span>2 of 8 · generated</span>
+        <span>audio</span><span>7.1 surround · mic on</span>
+        <span>network</span><span>private overlay · encrypted</span>
+      </div>
+    </div>
+  </figure>
+</div>
+<div class="status mono" aria-hidden="true">
+  <span class="live"><i></i>Connected · private overlay network · direct path · TLS 1.3</span>
+  <span>Client: macOS → Host: Windows 11 VM</span>
+  <span style="color: var(--dim)">Input, cursor and audio prioritised</span>
+</div>
+
+<style>
+  .displays { margin-top: 80px; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(min(460px, 100%), 1fr)); }
+  .win { margin: 0; background: #1b1b1b; border: 1px solid var(--line-2); border-radius: 14px; overflow: hidden; box-shadow: 0 50px 90px -40px rgba(0,0,0,.9); }
+  .titlebar { height: 38px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 14px; border-bottom: 1px solid var(--line); font: 11.5px var(--mono); color: #a0a0a0; }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-3); }
+  .hz { color: var(--red-text); }
+  .screen { aspect-ratio: 16 / 10; position: relative; }
+  .sheet { background: #f3f4f4; color: #1e2326; display: flex; flex-direction: column; }
+  .toolbar { height: 30px; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: #e6e8e9; border-bottom: 1px solid #d3d6d8; }
+  .toolbar i { height: 8px; border-radius: 2px; background: #c4c9cc; }
+  .toolbar span { margin-left: auto; font-size: 10px; color: #5b6469; }
+  .sheet-body { flex-grow: 1; padding: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .win { min-width: 0; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 11px; font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) {
+    table { font-size: 8.5px; }
+    th, td { padding: 3px 3px !important; }
+    .overlay { font-size: 9px; padding: 6px 8px; }
+  }
+  th, td { padding: 4px 8px; border: 1px solid #dde1e3; text-align: right; }
+  th { background: #dde3e5; color: #2b3438; font-weight: 600; border-color: #cbd1d4; }
+  td { background: #fff; }
+  th:first-child, td:first-child { text-align: left; }
+  .chart { margin-top: 12px; display: flex; align-items: flex-end; gap: 6px; flex: 1 1 64px; min-height: 48px; padding: 0 4px; border-bottom: 1px solid #cbd1d4; }
+  .chart span { flex-grow: 1; border-radius: 2px 2px 0 0; }
+  .cad { background: #101213; display: flex; }
+  .layers { width: 22%; border-right: 1px solid #262a2c; padding: 12px 10px; display: flex; flex-direction: column; gap: 9px; background: #15181a; }
+  .layers i { height: 7px; border-radius: 2px; background: #2a2f32; }
+  .viewport { flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 10px; }
+  .viewport svg { width: 100%; height: 100%; }
+  .overlay { position: absolute; top: 12px; right: 12px; padding: 10px 12px; border-radius: 8px; background: rgba(8,8,8,.82); border: 1px solid var(--line-3); font: 10.5px/1.7 var(--mono); color: #d8d8d8; display: grid; grid-template-columns: auto auto; column-gap: 14px; }
+  .overlay span:nth-child(odd) { color: var(--red-text); }
+  .status { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-alt); font-size: 12px; color: var(--muted); }
+  .live { display: flex; align-items: center; gap: 10px; }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 4px rgba(227,0,15,.18); }
+</style>

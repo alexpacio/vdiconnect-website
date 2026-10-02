@@ -1,0 +1,119 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import TrialForm from '../components/TrialForm';
+import NotifyForm from '../components/NotifyForm';
+import { PRICE_LABEL, links } from '../data/site';
+
+const requirements = [
+  ['System', 'Windows 11 x64, build 22000 or later'],
+  ['Displays', 'Generated (up to eight virtual monitors, GPU required) or mirrored (the host’s own monitors)'],
+  ['Network', 'One UDP port for direct connections, or no inbound ports at all on the private overlay network'],
+  ['Runs as', 'A Windows service, available at sign-in, lock and UAC screens'],
+];
+---
+<Layout
+  title="Download and 30-day free trial — VDIConnect"
+  description="Download the free VDIConnect client for Windows and macOS, and register for a 30-day free trial of VDIConnect Server."
+  active="download"
+>
+  <section class="section grid-bg">
+    <div class="container" style="padding-top: 88px; padding-bottom: 72px">
+      <p class="kicker">Download &amp; free trial</p>
+      <h1 class="h1 h1--sm">Try <span class="slice">VDIConnect</span> free.</h1>
+      <p class="lead lead--hero">The client is a free download for every device. The server — the part that runs on each Windows desktop — comes with a 30-day free trial: register and we'll e-mail you the download link and your trial key.</p>
+      <div class="row mt-md">
+        <a href="#trial" class="btn btn--primary">Start the 30-day server trial <Icon name="arrow" size={18} strokeWidth={2} /></a>
+        <a href="#clients" class="btn"><Icon name="download" size={18} /> Free client downloads</a>
+      </div>
+      <p class="row mono small" style="--gap: 8px 18px; margin: 22px 0 0; color: var(--dim)">
+        <span>Version [VERSION]</span><span>Released [DATE]</span><a href="#" class="link-red">Release notes</a>
+      </p>
+    </div>
+  </section>
+
+  <section id="clients" class="section">
+    <div class="container" style="padding-top: 80px; padding-bottom: 80px">
+      <div class="row row--between" style="align-items: baseline">
+        <h2 class="h2" style="margin: 0; font-size: clamp(1.75rem, 3.4vw, 2.5rem)">Client — free download</h2>
+        <span class="mono small" style="color: var(--dim)">No registration · install on every device</span>
+      </div>
+      <div class="grid mt-md">
+        <div class="card card--red stack os">
+          <span class="badge badge--red corner">Recommended</span>
+          <span class="os-tag mono">WIN</span>
+          <div>
+            <h3 class="os-name">Windows</h3>
+            <ul class="os-list"><li>x64</li><li>Builds for AVX2 and AVX-512 processors</li><li>Hardware-accelerated AV1 decoding</li></ul>
+          </div>
+          <a href={links.clientWindows || '#'} class="btn btn--primary btn--block" aria-disabled={links.clientWindows ? undefined : 'true'}><Icon name="download" size={18} strokeWidth={2} /> Download for Windows — free</a>
+        </div>
+        <div class="card stack os">
+          <span class="os-tag mono">MAC</span>
+          <div>
+            <h3 class="os-name">macOS</h3>
+            <ul class="os-list"><li>Apple silicon</li><li>macOS 11 or later</li><li>Hardware AV1 decoding on M3 and newer</li></ul>
+          </div>
+          <a href={links.clientMacos || '#'} class="btn btn--block" aria-disabled={links.clientMacos ? undefined : 'true'}><Icon name="download" size={18} strokeWidth={2} /> Download for macOS — free</a>
+        </div>
+        <div class="card card--dashed stack os">
+          <span class="badge badge--outline-red corner">Coming soon</span>
+          <span class="os-tag mono">LNX</span>
+          <div>
+            <h3 class="os-name">Linux</h3>
+            <p style="margin-top: 12px; color: var(--text-3); font-size: 14.5px">The Linux client is on its way. Leave your e-mail and we'll tell you the day it ships.</p>
+          </div>
+          <div style="margin-top: auto"><NotifyForm client:load endpoint={links.notifyForm} /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trial" class="section section--alt">
+    <div class="container grid" style="--min: 440px; gap: 48px; align-items: start; padding-top: 96px; padding-bottom: 96px">
+      <div class="stack" style="--gap: 22px">
+        <p class="kicker">Server · 30-day free trial</p>
+        <h2 class="h2" style="margin: 0; font-size: clamp(2rem, 4.4vw, 3.25rem)">Thirty days. Every feature. No card.</h2>
+        <p class="lead" style="margin: 0; font-size: 17px">Register once and we'll e-mail you the VDIConnect Server download link and a trial key. Install it on your Windows hosts and test it on your own network, with your own applications.</p>
+        <ul class="checks">
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />Ultra-low latency, AV1 4:4:4, up to eight displays, surround audio and every input</li>
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />Generated and mirrored displays, from the sign-in screen</li>
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />No credit card; nothing is charged when the trial ends</li>
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />Keep going with a license at {PRICE_LABEL} per VDI per month</li>
+        </ul>
+        <dl class="reqs">
+          {requirements.map(([k, v]) => (<><dt class="label">{k}</dt><dd>{v}</dd></>))}
+        </dl>
+        <a href="#" class="link-red row" style="--gap: 8px; min-height: 44px">Read the installation guide <Icon name="arrow" size={16} strokeWidth={2} /></a>
+      </div>
+      <div class="card card--panel" style="padding: 34px 32px; border-radius: 18px">
+        <TrialForm client:load endpoint={links.trialForm} salesEmail={links.salesEmail} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="padding-top: 104px; padding-bottom: 104px">
+      <p class="kicker">Quick start</p>
+      <h2 class="h2" style="font-size: clamp(1.9rem, 4vw, 3rem)">First desktop in three steps.</h2>
+      <ol class="grid mt-lg" style="list-style: none; padding: 0; margin-bottom: 0">
+        <li class="card card--top stack" style="--gap: 12px"><span class="mono small" style="color: var(--red-text)">01</span><strong class="step">Install the server</strong><span class="muted" style="font-size: 15px">Run the installer from your trial e-mail on the Windows host. It registers the VDIConnect service and its virtual display and audio drivers.</span></li>
+        <li class="card card--top stack" style="--gap: 12px"><span class="mono small" style="color: var(--red-text)">02</span><strong class="step">Choose how users sign in</strong><span class="muted" style="font-size: 15px">Their Windows account, an access token of at least 16 characters, or native Windows sign-in with Network Level Authentication.</span></li>
+        <li class="card card--top stack" style="--gap: 12px"><span class="mono small" style="color: var(--red-text)">03</span><strong class="step">Connect</strong><span class="muted" style="font-size: 15px">In the free client, enter the host's address or its ID on the private overlay network — or pick it from the hosts discovered on your office network.</span></li>
+      </ol>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .os { position: relative; --gap: 18px; }
+  .corner { position: absolute; top: 18px; right: 18px; }
+  .os-tag { width: 56px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid #444; font-size: 13px; color: #fff; }
+  .os-name { margin: 0; font-size: 28px; font-weight: 720; font-stretch: 114%; letter-spacing: -.02em; }
+  .os-list { margin: 12px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 14.5px; color: var(--text-3); }
+  .os .btn { margin-top: auto; }
+  .reqs { margin: 8px 0 0; padding: 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg); display: grid; grid-template-columns: auto 1fr; gap: 12px 22px; font-size: 14.5px; }
+  .reqs dt { padding-top: 2px; }
+  .reqs dd { margin: 0; color: var(--text-2); }
+  .step { font-size: 20px; font-weight: 680; font-stretch: 110%; }
+</style>

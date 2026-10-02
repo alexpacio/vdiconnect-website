@@ -1,0 +1,463 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import HeroDisplays from '../components/HeroDisplays.astro';
+import CompareTable from '../components/CompareTable.astro';
+import { PRICE_LABEL, comparison, industries } from '../data/site';
+
+const teaserRows = ['Video codec', 'Full 4:4:4 chroma', 'Reach hosts without a VPN', 'Licensing'];
+const teaser = [{ group: '', rows: comparison.flatMap((g) => g.rows).filter((r) => teaserRows.includes(r.label)) }];
+const homeIndustries = industries.filter((i) => i.id !== 'software');
+
+const glance = [
+  ['Ultra-low latency', 'The newest frame, always'],
+  ['AV1 · 4:4:4', 'Full colour, crisp text'],
+  ['Up to 8 displays', 'Generated or mirrored'],
+  ['7.1 audio + mic', 'Both directions'],
+  ['Every input', 'Keyboard to gamepad'],
+  ['From sign-in', 'Lock screen and UAC too'],
+];
+
+const unlocks = [
+  ['Move power users to VDI.', 'CAD, BIM, editing and multi-screen trading desks, not just e-mail and spreadsheets.'],
+  ['Put the GPUs in the rack.', 'Buy workstation-class hardware once, keep it secure and share it across shifts.'],
+  ['Work from anywhere, no VPN.', 'Home, site office, hotel or train — on an ordinary laptop.'],
+  ['Keep intellectual property in-house.', 'Designs, footage and source code stay on the host, never on a lost laptop.'],
+  ['Support users from the sign-in screen.', 'IT can sign in, unlock and approve admin prompts with nobody at the desk.'],
+  ['Grow one desktop at a time.', `${PRICE_LABEL} per VDI per month, bought online, with no minimum order and no hidden infrastructure costs.`],
+];
+
+const inputs = [
+  ['keyboard', 'Keyboard', 'Every Windows layout, shortcuts and IME text entry'],
+  ['mouse', 'Mouse', 'Five buttons, both wheels, relative mode for 3D and games'],
+  ['touch', 'Touch and trackpad', 'Multi-touch, pinch, rotate and pan gestures'],
+  ['gamepad', 'Gamepads', 'Up to four controllers, with rumble'],
+  ['mic', 'Microphone', 'Two-way audio for calls, meetings and dictation'],
+  ['clipboard', 'Clipboard and files', 'Text, images, files and whole folders, both ways'],
+] as const;
+
+const priorities = [
+  ['Input and cursor', '100%', '#E3000F'],
+  ['Audio', '86%', '#B8000C'],
+  ['Video, shared fairly across displays', '66%', '#6E6E6E'],
+  ['Clipboard and files, in the background', '34%', '#3A3A3A'],
+];
+---
+<Layout
+  title="VDIConnect — Ultra-low-latency remote display for VDI"
+  description="VDIConnect streams Windows desktops from your data centre in AV1 4:4:4 with ultra-low latency, surround audio, every input device and up to eight displays. Free client, 30-day server trial, €4.99 per VDI."
+  active="home"
+  photos
+>
+  <section class="section grid-bg">
+    <div class="container" style="padding-top: 104px; padding-bottom: 96px">
+      <span class="pill">Ultra-low-latency remote display for VDI</span>
+      <h1 class="h1" style="max-width: 12ch">Virtual desktops that feel <span class="slice">local.</span></h1>
+      <p class="lead lead--hero">
+        VDIConnect is a remote desktop protocol engineered for ultra-low latency. Users get their full Windows desktop from the
+        data centre — sharp AV1 video in 4:4:4 colour, surround sound, every input device and up to eight displays — on Windows
+        and macOS, with Linux coming soon.
+      </p>
+      <div class="row mt-md">
+        <a href="/pricing/" class="btn btn--primary">Buy licenses <Icon name="arrow" size={18} strokeWidth={2} /></a>
+        <a href="/download/#trial" class="btn"><Icon name="download" size={18} /> Start a 30-day free trial</a>
+      </div>
+      <p class="label" style="margin: 20px 0 0; font-size: 12px; letter-spacing: .1em">{PRICE_LABEL} per VDI per month · Free client · 30-day server trial</p>
+      <HeroDisplays />
+    </div>
+  </section>
+
+  <section aria-label="Capabilities at a glance" class="glance">
+    <ul class="container">
+      {glance.map(([title, sub]) => (
+        <li><strong>{title}</strong><span>{sub}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="why" class="section">
+    <div class="container">
+      <p class="kicker">01 — Why it's different</p>
+      <h2 class="h2" style="max-width: 18ch">VDI used to mean compromise. Not any more.</h2>
+      <p class="lead">
+        Many companies keep VDI for office work, because designers, editors, traders and engineers notice every blurred line and
+        every delay. VDIConnect was built for exactly those users — and without the infrastructure that usually comes with VDI.
+      </p>
+      <div class="grid mt-xl">
+        <article class="card card--panel stack">
+          <span class="label label--red">Performance</span>
+          <h3 class="h3 h3--lg">Workstation-grade, not office-grade</h3>
+          <p class="muted">An ultra-low-latency pipeline, AV1 in full 4:4:4 colour, surround audio and up to eight displays. Power users can move to VDI without changing the way they work.</p>
+        </article>
+        <article class="card card--panel stack">
+          <span class="label label--red">Simplicity</span>
+          <h3 class="h3 h3--lg">No VDI infrastructure to build</h3>
+          <p class="muted">No connection brokers, gateways, load balancers or VPN appliances. Install the server on each Windows host and the client on each device. A small IT team can roll it out without a consultancy project.</p>
+        </article>
+        <article class="card card--panel stack">
+          <span class="label label--red">Security</span>
+          <h3 class="h3 h3--lg">Private by design</h3>
+          <p class="muted">Hosts sit on a private overlay network and never open an inbound port. Sessions are encrypted end to end, and applications and data stay on the host — the network carries the picture, the sound and the input.</p>
+        </article>
+      </div>
+      <div class="split mt-sm">
+        <div class="split-media">
+          <img src="/images/server-room.jpg" alt="Server racks with network cabling in a data centre" class="image-cover" loading="lazy" />
+          <span class="caption label">Desktops live here. Users don't have to.</span>
+        </div>
+        <div class="split-body stack" style="--gap: 22px">
+          <h3 class="h3" style="font-size: 24px">What it unlocks for your company</h3>
+          <ol class="unlocks">
+            {unlocks.map(([title, text], i) => (
+              <li><span class="mono num">{String(i + 1).padStart(2, '0')}</span><span><strong>{title}</strong> <span class="muted">{text}</span></span></li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="performance" class="section section--alt">
+    <div class="container">
+      <p class="kicker">02 — Performance</p>
+      <h2 class="h2">Ultra-low latency. Studio-grade picture and sound.</h2>
+      <p class="lead">Everything in VDIConnect serves one goal: what happens on the host appears in front of the user as soon as possible — and looks and sounds right when it does.</p>
+      <div class="grid mt-xl">
+        <article class="card card--base stack">
+          <Icon name="bolt" size={28} color="#FF4B57" />
+          <h3 class="h3">Latency</h3>
+          <ul class="list">
+            <li>Frames never queue behind old ones: late video is skipped, never replayed.</li>
+            <li>Input, cursor and audio always travel ahead of video.</li>
+            <li>The cursor is drawn on the client's GPU, at up to 240 updates a second.</li>
+            <li>Lost packets are repaired as they arrive, without waiting for a resend.</li>
+            <li>Bitrate follows the network continuously and recovers quickly after a dip.</li>
+          </ul>
+        </article>
+        <article class="card card--base stack">
+          <Icon name="monitor" size={28} color="#FF4B57" />
+          <h3 class="h3">Picture</h3>
+          <ul class="list">
+            <li>AV1 in full 4:4:4 colour keeps small text, thin CAD lines and coloured interfaces sharp.</li>
+            <li>Steps down to 4:2:0 on its own when bandwidth is tight, and back again.</li>
+            <li>4K per display, display modes up to 240 Hz, any resolution.</li>
+            <li>Hardware-accelerated decoding and rendering on the client.</li>
+          </ul>
+        </article>
+        <article class="card card--base stack">
+          <Icon name="wave" size={28} color="#FF4B57" />
+          <h3 class="h3">Sound</h3>
+          <ul class="list">
+            <li>48 kHz audio in stereo, 5.1 or 7.1 surround.</li>
+            <li>The microphone works in the other direction, for calls and dictation.</li>
+            <li>An adaptive jitter buffer keeps playback smooth on unsteady networks.</li>
+            <li>Audio never waits behind a large video frame.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="card card--base mt-sm">
+        <div class="row row--between" style="align-items: baseline">
+          <h3 class="h3">Priority on the wire</h3>
+          <span class="mono small" style="color: var(--dim)">What the user feels goes first</span>
+        </div>
+        <ol class="priority">
+          {priorities.map(([label, width, color], i) => (
+            <li>
+              <span><span class="mono num">{i + 1}</span> {label}</span>
+              <span class="bar" aria-hidden="true"><span style={`width:${width};background:${color}`}></span></span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <h3 class="h3" style="margin-top: 80px; font-size: clamp(1.6rem, 3vw, 2.25rem)">Every input, as if it were plugged in.</h3>
+      <div class="grid mt-md" style="--min: 260px; gap: 14px">
+        {inputs.map(([icon, title, text]) => (
+          <div class="card card--base input-card">
+            <Icon name={icon} size={26} color="#FF4B57" />
+            <span><strong>{title}</strong><span class="small muted">{text}</span></span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="encoding" class="section section--deep">
+    <div class="container">
+      <p class="kicker">03 — Encoding</p>
+      <h2 class="h2" style="max-width: 18ch">Hardware or software encoding. Both built for speed.</h2>
+      <p class="lead">VDIConnect encodes AV1 in real time on the host's GPU when it has an AV1 encoder, and on the CPU when it doesn't. Both modes are tuned for low latency — so a VDI doesn't need a GPU encoder to feel fast.</p>
+      <div class="grid mt-lg" style="--min: 440px">
+        <article class="card card--panel stack" style="--gap: 18px">
+          <div class="row row--between" style="align-items: center">
+            <span class="row"><Icon name="gpu" size={30} color="#FF4B57" /><h3 class="h3 h3--lg">Hardware encoding</h3></span>
+            <span class="badge">GPU</span>
+          </div>
+          <p style="color: var(--text-2)">Uses the AV1 encoder built into the host's graphics card, so encoding stays off the processor.</p>
+          <ul class="list">
+            <li>Low latency, with the CPU left free for the user's applications.</li>
+            <li>Ideal for GPU workstations and GPU-backed virtual machines.</li>
+            <li>Streams in 4:2:0 colour; 4:4:4 sessions use the software encoder.</li>
+          </ul>
+        </article>
+        <article class="card card--red stack" style="--gap: 18px">
+          <div class="row row--between" style="align-items: center">
+            <span class="row"><Icon name="cpu" size={30} color="#FF4B57" /><h3 class="h3 h3--lg">Software encoding</h3></span>
+            <span class="badge badge--red">CPU · SIMD</span>
+          </div>
+          <p style="color: var(--text-2)">A SIMD-optimised encoder uses the AVX2 and AVX-512 instructions of modern server and desktop processors to encode every frame in real time, with a small CPU footprint.</p>
+          <ul class="list">
+            <li>Up to 60 fps with low latency, even on VDIs without a GPU encoder.</li>
+            <li>Full 4:2:0 and 4:4:4 colour.</li>
+            <li>Colour conversion runs on SIMD too when there is no GPU to do it.</li>
+            <li>Ideal for dense VDI hosts and virtual machines without an AV1 encoder.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="card card--base mt-sm row row--between" style="align-items: center">
+        <div class="stack" style="--gap: 4px; max-width: 560px">
+          <strong style="font-size: 18px">Automatic, or your choice.</strong>
+          <span class="small muted">Leave the encoder on automatic and VDIConnect picks a mode for each host, or set it host by host.</span>
+        </div>
+        <div class="fake-segmented mono" aria-hidden="true"><span class="on">Automatic</span><span>Hardware · GPU</span><span>Software · CPU</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="displays" class="section">
+    <div class="container">
+      <p class="kicker">04 — Displays</p>
+      <h2 class="h2" style="max-width: 18ch">Up to eight displays. Generated or mirrored.</h2>
+      <p class="lead">Choose, host by host, how VDIConnect gives your users their screens.</p>
+      <div class="grid mt-lg" style="--min: 440px">
+        <article class="card card--red stack" style="--gap: 20px">
+          <div class="row row--between" style="align-items: center"><h3 class="h3 h3--lg">Generated displays</h3><span class="badge badge--red">Best for VDI</span></div>
+          <div class="diagram" aria-hidden="true">
+            <span class="host"><span class="tower"><i></i><i></i><i style="background: var(--red)"></i></span><span class="mono">headless host</span></span>
+            <span class="wire dashed"></span>
+            <span class="screens"><span class="virt">V1</span><span class="virt">V2</span><span class="virt">V3</span></span>
+          </div>
+          <p style="color: var(--text-2)">VDIConnect creates virtual monitors on the host — up to eight. Each one matches the size and DPI of the user's window and follows it when the window is resized or goes full screen.</p>
+          <ul class="list">
+            <li>No monitor or dummy plug needed: made for servers, GPU virtual machines and rack workstations.</li>
+            <li>While a user is connected, the host's physical screens stay dark; the original layout returns when they leave.</li>
+            <li>Requires a GPU on the host.</li>
+          </ul>
+        </article>
+        <article class="card card--panel stack" style="--gap: 20px">
+          <div class="row row--between" style="align-items: center"><h3 class="h3 h3--lg">Mirrored displays</h3><span class="badge">Best for office PCs</span></div>
+          <div class="diagram" aria-hidden="true">
+            <span class="host"><span class="phys"></span><span class="phys"></span></span>
+            <span class="wire"></span>
+            <span class="screens"><span class="mirror">M1</span><span class="mirror">M2</span></span>
+          </div>
+          <p style="color: var(--text-2)">VDIConnect streams the monitors already attached to the host, exactly as they are: same resolution, same layout, same windows.</p>
+          <ul class="list">
+            <li>Ideal for the office workstation you also use from home, for labs and for control rooms.</li>
+            <li>Someone at the host sees what the remote user sees — useful for support and training.</li>
+            <li>Works with the host's existing monitors and graphics.</li>
+          </ul>
+        </article>
+      </div>
+      <div class="split mt-sm">
+        <div class="split-body stack" style="--gap: 18px; justify-content: center">
+          <span class="label label--red" style="font-size: 12px">In both modes</span>
+          <h3 class="h3" style="font-size: clamp(1.6rem, 3vw, 2.25rem)">From the very first screen.</h3>
+          <p class="muted">VDIConnect runs as a Windows service, so it streams what app-level remote tools can't: the sign-in screen, the lock screen and UAC administrator prompts. Users sign in and unlock remotely; IT approves admin prompts without anyone at the desk.</p>
+          <div class="row" style="--gap: 10px">
+            <span class="tag"><Icon name="user" size={16} color="#FF4B57" />Sign-in screen</span>
+            <span class="tag"><Icon name="lock" size={16} color="#FF4B57" />Lock screen</span>
+            <span class="tag"><Icon name="shield" size={16} color="#FF4B57" />UAC prompts</span>
+            <span class="tag"><Icon name="restart" size={16} color="#FF4B57" />After a restart</span>
+          </div>
+        </div>
+        <div class="split-media">
+          <img src="/images/multi-monitor.jpg" alt="A desk with three monitors side by side" class="image-cover" style="object-position: 50% 40%" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="use-cases" class="section section--alt">
+    <div class="container">
+      <div class="row row--between">
+        <div>
+          <p class="kicker">05 — Use cases</p>
+          <h2 class="h2" style="max-width: 17ch">Built for the people VDI usually leaves out.</h2>
+        </div>
+        <a href="/use-cases/" class="btn">All use cases and business cases <Icon name="arrow" size={16} strokeWidth={2} /></a>
+      </div>
+      <div class="grid mt-lg" style="--min: 340px">
+        {homeIndustries.map((ind) => (
+          <a href={`/use-cases/#${ind.id}`} class="industry">
+            <img src={ind.image} alt={ind.alt} loading="lazy" />
+            <span class="stack" style="--gap: 8px; padding: 24px 24px 26px">
+              <span class="label label--red">{ind.label}</span>
+              <span class="industry-title">{ind.title}</span>
+              <span class="small muted">{ind.teaser}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="network" class="section">
+    <div class="container">
+      <p class="kicker">06 — Private overlay network</p>
+      <h2 class="h2" style="max-width: 18ch">Reach every host. Expose none.</h2>
+      <p class="lead">Clients and hosts meet on a private overlay network. Hosts never open an inbound port, and they are reachable only with their cryptographic ID and valid credentials — from the office, from home or from the road, without a VPN.</p>
+      <div class="grid mt-lg" style="--min: 440px">
+        <div class="photo-card">
+          <img src="/images/remote-work.jpg" alt="A man working on a laptop on a train" class="image-cover" loading="lazy" />
+          <div class="photo-caption stack" style="--gap: 6px">
+            <span class="label label--red">Client</span>
+            <strong style="font-size: 18px">An ordinary laptop, on a train Wi-Fi</strong>
+          </div>
+        </div>
+        <div class="card stack" style="--gap: 30px; justify-content: center">
+          <div>
+            <div class="path-head mono"><span>Direct path</span><span>Peer to peer · TLS 1.3</span></div>
+            <div class="path"><span style="background: var(--red)"></span><i style="border-left-color: var(--red)"></i></div>
+            <p class="small muted" style="margin-top: 12px">Used whenever client and host can reach each other, even through NAT and without port forwarding.</p>
+          </div>
+          <div>
+            <div class="path-head mono"><span>Relay fallback</span><span>End-to-end encrypted</span></div>
+            <div class="path"><span class="dashed"></span><i style="border-left-color: var(--dim)"></i></div>
+            <p class="small muted" style="margin-top: 12px">When there is no direct path, traffic crosses a relay that cannot decrypt it. Use ours or run your own.</p>
+          </div>
+          <div>
+            <div class="path-head mono"><span>Office network</span><span>Automatic discovery</span></div>
+            <div class="path"><span style="background: #5a5a5a"></span><i style="border-left-color: #5a5a5a"></i></div>
+            <p class="small muted" style="margin-top: 12px">On the local network, hosts appear in the client on their own.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt section--tight">
+    <div class="container">
+      <div class="row row--between">
+        <div>
+          <p class="kicker">07 — Platforms</p>
+          <h2 class="h2" style="max-width: 18ch">Connect from the devices your team already has.</h2>
+        </div>
+        <a href="/download/" class="btn">Free client downloads <Icon name="arrow" size={16} strokeWidth={2} /></a>
+      </div>
+      <div class="grid mt-lg" style="--min: 250px">
+        <div class="card card--base stack" style="--gap: 10px"><span class="label">Client · free</span><strong class="platform">Windows</strong><span class="small muted">x64 · optimised builds for modern processors</span></div>
+        <div class="card card--base stack" style="--gap: 10px"><span class="label">Client · free</span><strong class="platform">macOS</strong><span class="small muted">Apple silicon · macOS 11 or later</span></div>
+        <div class="card card--base card--dashed stack" style="--gap: 10px"><span class="row row--between" style="align-items: center"><span class="label">Client</span><span class="badge badge--outline-red">Coming soon</span></span><strong class="platform">Linux</strong><span class="small muted">x64 · <a href="/download/#clients" class="link-red">get notified</a></span></div>
+        <div class="card card--red stack" style="--gap: 10px"><span class="label label--red">Host · 30-day trial</span><strong class="platform">Windows 11</strong><span class="small muted">x64 · runs as a service · GPU for generated displays</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="kicker">08 — How it compares</p>
+      <h2 class="h2" style="max-width: 20ch">A VDI display protocol, without the VDI suite.</h2>
+      <p class="lead">No controllers, gateways or VPN to stand up. Install the server on each host, the client on each device, and buy licenses online.</p>
+      <div class="mt-lg"><CompareTable groups={teaser} showGroups={false} /></div>
+      <a href="/compare/" class="link-red row mt-sm" style="--gap: 10px; min-height: 44px">See the full comparison <Icon name="arrow" size={16} strokeWidth={2} /></a>
+    </div>
+  </section>
+
+  <section class="section grid-bg">
+    <div class="container grid" style="--min: 420px; gap: 48px; align-items: center">
+      <div>
+        <p class="kicker">09 — Pricing</p>
+        <h2 class="h2" style="font-size: clamp(2.25rem, 5vw, 4rem); line-height: 1">One price per VDI, bought in minutes.</h2>
+        <p class="lead" style="max-width: 520px">Choose how many virtual desktops to license, pay by card through Stripe or with PayPal, and get your license key by e-mail. Every license includes every feature.</p>
+      </div>
+      <div class="card card--panel stack" style="--gap: 22px; padding: 36px; border-radius: 18px">
+        <div class="row" style="align-items: baseline; --gap: 10px">
+          <span class="price">{PRICE_LABEL}</span>
+          <span class="muted">per VDI / month, plus VAT</span>
+        </div>
+        <ul class="checks">
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />Up to eight displays, 4:4:4 AV1, surround audio and every input</li>
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />Unlimited users and devices per VDI; Linux client coming soon</li>
+          <li><Icon name="check" size={18} color="#FF4B57" strokeWidth={2.2} />Invoices with Italian and EU VAT handled</li>
+        </ul>
+        <div class="row" style="--gap: 12px">
+          <a href="/pricing/" class="btn btn--primary">Buy licenses <Icon name="arrow" size={18} strokeWidth={2} /></a>
+          <a href="/download/#trial" class="btn">Try it free for 30 days</a>
+        </div>
+        <p class="small muted" style="margin: 0">More than 100 VDIs? <a href="/pricing/#enterprise" class="link-red">Talk to sales</a></p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .glance { background: var(--bg-deep); border-bottom: 1px solid var(--line); }
+  .glance ul { list-style: none; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(180px, 100%), 1fr)); }
+  .glance li { padding: 28px 18px; border-left: 1px solid #262626; display: flex; flex-direction: column; gap: 6px; }
+  .glance li:last-child { border-right: 1px solid #262626; }
+  .glance strong { font-size: 17px; font-weight: 680; font-stretch: 110%; }
+  .glance span { font-size: 13.5px; color: var(--muted-2); }
+
+  .split { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(440px, 100%), 1fr)); border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden; background: var(--bg-alt); }
+  .split-media { position: relative; min-height: 380px; }
+  .split-media img { position: absolute; inset: 0; }
+  .split-body { padding: 40px 36px; }
+  .caption { position: absolute; left: 20px; bottom: 18px; padding: 6px 10px; border-radius: 6px; background: rgba(10,10,10,.8); color: var(--text-2); }
+  .unlocks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .unlocks li { display: grid; grid-template-columns: 28px 1fr; gap: 10px; }
+  .num { font-size: 13px; color: var(--red-text); }
+  .unlocks .num { padding-top: 2px; }
+
+  .priority { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .priority li { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 8px 20px; align-items: center; font-weight: 600; }
+  .priority .bar span { display: block; height: 12px; border-radius: 3px; }
+
+  .input-card { padding: 22px; display: flex; gap: 16px; border-radius: 12px; }
+  .input-card svg { flex-shrink: 0; }
+  .input-card strong { display: block; font-weight: 650; }
+
+  .fake-segmented { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 12px; background: var(--bg-deep); border: 1px solid var(--line); font-size: 12.5px; }
+  .fake-segmented span { padding: 10px 14px; border-radius: 9px; color: var(--text-3); }
+  .fake-segmented .on { background: var(--text); color: var(--bg); font-weight: 600; }
+
+  .diagram { display: flex; align-items: center; gap: 14px; padding: 22px; border-radius: 12px; background: var(--bg); border: 1px solid var(--line); }
+  .host { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 80px; font-size: 10.5px; color: var(--dim); }
+  .host:has(.phys) { flex-direction: row; gap: 6px; }
+  .tower { width: 56px; height: 64px; border: 1.5px solid var(--dim); border-radius: 6px; display: flex; flex-direction: column; justify-content: space-evenly; padding: 0 8px; }
+  .tower i { height: 3px; background: #5a5a5a; }
+  .phys { width: 40px; height: 30px; border: 1.5px solid var(--text-2); border-radius: 3px; background: #262626; }
+  .wire { flex-grow: 1; border-top: 2px solid var(--dim); }
+  .wire.dashed { border-top: 2px dashed #5a5a5a; }
+  .screens { display: flex; gap: 8px; }
+  .screens span { width: 62px; height: 42px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font: 10px var(--mono); }
+  .virt { border: 1.5px dashed var(--red-text); color: var(--red-text); }
+  .mirror { border: 1.5px solid var(--text-2); color: var(--text-2); }
+  @media (max-width: 560px) {
+    .diagram { padding: 16px; gap: 10px; }
+    .host { min-width: 56px; }
+    .tower { width: 44px; height: 52px; }
+    .phys { width: 30px; height: 24px; }
+    .screens { gap: 5px; }
+    .screens span { width: 44px; height: 32px; }
+  }
+  .tag { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--line-3); background: var(--bg); font-size: 14px; }
+
+  .industry { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg); color: var(--text); }
+  .industry:hover { border-color: var(--red); color: var(--text); }
+  .industry img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .industry-title { font-size: 20px; line-height: 1.2; font-weight: 680; font-stretch: 110%; }
+
+  .photo-card { position: relative; min-height: 420px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+  .photo-card img { position: absolute; inset: 0; }
+  .photo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,20,20,0) 50%, rgba(20,20,20,.92) 100%); }
+  .photo-caption { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 1; }
+  .path-head { display: flex; justify-content: space-between; gap: 12px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+  .path-head span:first-child { color: var(--text); }
+  .path { margin-top: 12px; display: flex; align-items: center; }
+  .path span { flex-grow: 1; height: 2px; }
+  .path span.dashed { height: 0; border-top: 2px dashed var(--dim); }
+  .path i { width: 0; height: 0; border-top: 6px solid transparent; border-bottom: 6px solid transparent; border-left: 11px solid; }
+
+  .platform { font-size: 24px; font-weight: 700; font-stretch: 112%; }
+  .price { font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1; font-weight: 760; font-stretch: 118%; letter-spacing: -.04em; }
+</style>

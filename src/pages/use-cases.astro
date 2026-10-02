@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import { PRICE_LABEL, PRICE_PER_VDI, formatEUR, industries, scenarios } from '../data/site';
+---
+<Layout
+  title="Use cases and business cases — VDIConnect"
+  description="How engineering, construction, media, finance, software studios, contact centres and healthcare put demanding work on VDI with VDIConnect."
+  active="use-cases"
+  footerNote="Business cases are illustrative scenarios, not customer references"
+  photos
+>
+  <section class="section grid-bg">
+    <div class="container" style="padding-top: 96px; padding-bottom: 72px">
+      <p class="kicker">Use cases</p>
+      <h1 class="h1 h1--sm" style="max-width: 14ch">Put your most demanding work on <span class="slice">VDI.</span></h1>
+      <p class="lead lead--hero">Seven industries where ultra-low latency, full-colour AV1, surround audio, every input device and up to eight displays turn the remote desktop from a compromise into the default way to work.</p>
+      <nav aria-label="Industries" class="row mt-lg" style="--gap: 10px">
+        {industries.map((i) => <a href={`#${i.id}`} class="jump">{i.label}</a>)}
+        <a href="#scenarios" class="jump jump--red">Cross-industry scenarios</a>
+      </nav>
+    </div>
+  </section>
+
+  {industries.map((ind, index) => (
+    <section id={ind.id} class:list={['section section--tight', { 'section--alt': index % 2 === 1 }]}>
+      <div class="container grid case" style="--min: 460px; gap: 48px">
+        <img src={ind.image} alt={ind.alt} class="frame-img" loading="lazy" style={index % 2 === 1 ? 'order: 2' : undefined} />
+        <div class="stack" style="--gap: 22px">
+          <span class="label label--red" style="font-size: 12px">{String(index + 1).padStart(2, '0')} · {ind.label}</span>
+          <h2 class="case-title">{ind.heading}</h2>
+          <div class="stack" style="--gap: 6px"><span class="case-label">The challenge</span><p class="case-text">{ind.challenge}</p></div>
+          <div class="stack" style="--gap: 6px"><span class="case-label">With VDIConnect</span><p class="case-text">{ind.solution}</p></div>
+          <div class="business stack" style="--gap: 10px">
+            <span class="label label--red">Business case</span>
+            <p style="margin: 0">{ind.businessCase}</p>
+            <span class="mono small" style="color: var(--text-2)">VDIConnect: {ind.vdis} VDIs × {PRICE_LABEL} = {formatEUR(ind.vdis * PRICE_PER_VDI)} {ind.costNote ?? '/ month'}</span>
+          </div>
+          <div class="row" style="--gap: 8px">{ind.chips.map((c) => <span class="chip">{c}</span>)}</div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section id="scenarios" class="section section--deep">
+    <div class="container">
+      <p class="kicker">Across every industry</p>
+      <h2 class="h2" style="max-width: 18ch">Six scenarios that pay back quickly.</h2>
+      <div class="grid mt-lg">
+        {scenarios.map((s, i) => (
+          <article class="card card--top stack" style="--gap: 12px; background: var(--bg)">
+            <span class="mono small" style="color: var(--red-text)">{String.fromCharCode(65 + i)}</span>
+            <h3 class="h3" style="font-size: 20px">{s.title}</h3>
+            <p class="muted" style="font-size: 15px">{s.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section grid-bg">
+    <div class="container row row--between" style="align-items: center; padding-top: 112px; padding-bottom: 112px">
+      <div style="max-width: 640px">
+        <h2 class="h2" style="margin: 0">Start with one team.</h2>
+        <p class="lead" style="margin-top: 18px">Try the server free for 30 days on a few hosts, then license your desktops at {PRICE_LABEL} per VDI per month.</p>
+      </div>
+      <div class="row" style="--gap: 12px">
+        <a href="/download/#trial" class="btn btn--primary">Start a 30-day free trial <Icon name="arrow" size={18} strokeWidth={2} /></a>
+        <a href="/pricing/" class="btn">Buy licenses</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .jump { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-3); font-size: 14px; }
+  .jump--red { border-color: var(--red); color: #fff; }
+  .case { align-items: start; }
+  .case-title { margin: 0; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.05; font-weight: 720; font-stretch: 114%; letter-spacing: -.025em; text-wrap: balance; }
+  .case-label { font-size: 13px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--dim); }
+  .case-text { margin: 0; font-size: 15.5px; color: var(--text-3); }
+  .business { padding: 22px; border-radius: 14px; background: var(--panel-red); border: 1px solid #4a2226; }
+  @media (max-width: 960px) { .case img { order: 0 !important; } }
+</style>

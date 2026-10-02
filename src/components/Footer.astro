@@ -1,0 +1,72 @@
+---
+import { links } from '../data/site';
+
+interface Props {
+  /** Short line at the bottom right of the footer. */
+  note?: string;
+  /** Show the photo credit in the legal notice. */
+  photos?: boolean;
+}
+
+const { note = 'vdiconnect.it', photos = false } = Astro.props;
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="cols">
+      <div class="stack" style="--gap: 16px">
+        <img src="/images/netter-logo.png" alt="Netter" width="151" height="40" class="logo" />
+        <p class="muted small" style="margin: 0; max-width: 260px">VDIConnect is designed and built in Italy by Netter srl.</p>
+      </div>
+      <nav aria-label="Product">
+        <span class="label">Product</span>
+        <a href="/#performance">Performance</a>
+        <a href="/use-cases/">Use cases</a>
+        <a href="/compare/">Compare</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/download/">Download</a>
+        <a href="/download/#trial">30-day free trial</a>
+      </nav>
+      <nav aria-label="Company">
+        <span class="label">Company</span>
+        <a href={`mailto:${links.salesEmail}`}>Contact sales</a>
+        <a href="/pricing/">Buy licenses</a>
+      </nav>
+      <nav aria-label="Legal">
+        <span class="label">Legal</span>
+        <a href="/legal/terms/">Terms of sale</a>
+        <a href="/legal/license/">License agreement</a>
+        <a href="/legal/trial/">Trial terms</a>
+        <a href="/legal/privacy/">Privacy policy</a>
+        <a href="/legal/cookies/">Cookie policy</a>
+      </nav>
+    </div>
+    <div class="bottom">
+      <span>© {year} Netter srl · [REGISTERED ADDRESS] · P.IVA [VAT NUMBER]</span>
+      <span>{note}</span>
+    </div>
+    <p class="legal">
+      VDIConnect, Netter and the Netter logo are trademarks of Netter srl. Microsoft, Windows, Azure and Remote Desktop are
+      trademarks of the Microsoft group of companies. Apple and macOS are trademarks of Apple Inc., registered in the U.S.
+      and other countries and regions. Linux® is the registered trademark of Linus Torvalds in the U.S. and other countries.
+      Parsec, Citrix, Stripe, PayPal, Visa, Mastercard, American Express and all other product names, logos and brands
+      mentioned on this site are the property of their respective owners. They are used for identification and comparison
+      only; their use does not imply endorsement, sponsorship or affiliation. Comparisons reflect publicly available
+      information on the date stated and may change.{photos && ' Photographs from Unsplash, used under the Unsplash License; the people shown are not VDIConnect customers.'}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--bg-deep); }
+  .site-footer > .container { padding-top: 72px; padding-bottom: 40px; }
+  .cols { display: grid; gap: 40px; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); }
+  .logo { height: 40px; width: auto; }
+  nav { display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+  .bottom {
+    margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+    font-size: 12.5px; color: var(--dim);
+  }
+  .legal { margin: 24px 0 0; max-width: 960px; font-size: 12px; line-height: 1.65; color: var(--dim); }
+</style>

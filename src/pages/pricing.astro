@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PricingCalculator from '../components/PricingCalculator';
+import { PRICE_LABEL, PRICE_PER_VDI, links } from '../data/site';
+
+const faqs = [
+  ['What counts as a VDI?', 'One VDI is one Windows desktop — a virtual machine or a physical workstation — running VDIConnect Server. Any number of users and client devices can connect to it, one at a time. Clients are free and never counted.'],
+  ['Is there a free trial?', 'Yes. The client is always a free download. The server comes with a 30-day trial with every feature: register on the download page and we’ll e-mail you the download link and a trial key.'],
+  ['Can I change the number of VDIs later?', 'Yes. Add or remove VDIs from your account at any time; the change applies from the next billing period.'],
+  ['Which payment methods do you accept?', 'Visa, Mastercard and American Express through Stripe, and PayPal. Orders over 100 VDIs can also be paid by bank transfer against an invoice.'],
+  ['Will I receive an invoice?', 'Yes. Italian customers receive an electronic invoice (fattura elettronica) through the SDI. Customers elsewhere receive a PDF invoice with the right VAT treatment for their country.'],
+  ['Are Microsoft licences included?', 'No. VDIConnect licenses the remote display. Windows desktops in virtual machines still need the usual Windows or Microsoft 365 licences from Microsoft.'],
+];
+---
+<Layout
+  title="Pricing — €4.99 per VDI per month — VDIConnect"
+  description="One price per VDI, every feature included. Buy online by card through Stripe or with PayPal. Free client and 30-day server trial."
+  active="pricing"
+  footerNote="Payments processed by Stripe and PayPal · Prices exclude VAT"
+>
+  <section class="section grid-bg">
+    <div class="container grid" style="--min: 420px; gap: 40px; align-items: end; padding-top: 88px; padding-bottom: 56px">
+      <div>
+        <p class="kicker">Pricing</p>
+        <h1 class="h1 h1--sm" style="max-width: 13ch">One price per VDI. <span class="slice">Every feature.</span></h1>
+        <p class="lead lead--hero">A VDI is one Windows desktop — a virtual machine or a workstation — running VDIConnect Server. Any number of users and client devices can connect to it, one at a time. Ultra-low latency, up to eight displays, 4:4:4 AV1, surround audio and every input are always included.</p>
+      </div>
+      <div class="card card--panel stack" style="--gap: 14px; border-radius: 18px">
+        <div class="row" style="align-items: baseline; --gap: 10px">
+          <span class="price">{PRICE_LABEL}</span>
+          <span class="muted">per VDI / month, plus VAT</span>
+        </div>
+        <p style="color: var(--text-3)">The client is free. Not ready to buy? <a href="/download/#trial" class="link-red">Try the server free for 30 days</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="padding-top: 56px; padding-bottom: 112px">
+      <PricingCalculator
+        client:load
+        price={PRICE_PER_VDI}
+        stripeMonthly={links.stripeMonthly}
+        stripeYearly={links.stripeYearly}
+        paypalMonthly={links.paypalMonthly}
+        paypalYearly={links.paypalYearly}
+      />
+    </div>
+  </section>
+
+  <section id="enterprise" class="section section--alt section--tight">
+    <div class="container row row--between" style="align-items: center">
+      <div style="max-width: 640px">
+        <p class="kicker">More than 100 VDIs</p>
+        <h2 class="h2" style="margin-top: 20px; font-size: clamp(1.9rem, 4vw, 3rem)">Licensing a whole VDI estate?</h2>
+        <p class="lead" style="margin-top: 18px; font-size: 17px">Volume pricing, invoicing by bank transfer and help planning the rollout of hosts and clients.</p>
+      </div>
+      <a href={`mailto:${links.salesEmail}?subject=VDIConnect%20volume%20licensing`} class="btn" style="border-color: var(--text); color: #fff">Talk to sales <Icon name="arrow" size={18} strokeWidth={2} /></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 880px; padding-top: 112px; padding-bottom: 112px">
+      <h2 class="h2" style="margin: 0; font-size: clamp(1.9rem, 4vw, 3rem)">Questions</h2>
+      <div class="mt-md" style="border-top: 1px solid var(--line)">
+        {faqs.map(([q, a]) => (
+          <details class="faq">
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .price { font-size: clamp(3.25rem, 6vw, 4.75rem); line-height: 1; font-weight: 760; font-stretch: 118%; letter-spacing: -.04em; }
+</style>
